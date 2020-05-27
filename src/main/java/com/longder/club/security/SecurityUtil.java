@@ -21,6 +21,9 @@ public class SecurityUtil {
         } else if ("anonymoususer".equalsIgnoreCase(String.valueOf(authentication.getPrincipal()))) {
             return null;
         }
-        return authentication.getPrincipal() instanceof SysUser ? (SysUser) authentication.getPrincipal() : null;
+
+        SysUser sysUser = (SysUser) authentication.getPrincipal();
+        sysUser.fillRole();
+        return sysUser;
     }
 }

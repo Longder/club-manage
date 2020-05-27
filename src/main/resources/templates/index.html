@@ -3,7 +3,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <!--引入统一头-->
 <head th:include="import/head :: head"></head>
-<title>垃圾分类管理系统</title>
+<title>社团管理系统</title>
 <body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
 <div id="wrapper">
     <!--左侧导航开始-->
@@ -30,15 +30,31 @@
                     </div>
                 </li>
                 <li sec:authorize="hasRole('ROLE_ADMIN')">
-                    <a class="J_menuItem" th:href="@{/admin/garbageType/list}" title="垃圾类型管理">
-                        <i class="fa fa-dedent"></i>
-                        <span class="nav-label">垃圾类型管理</span>
+                    <a class="J_menuItem" th:href="@{/admin/user/list}" title="用户管理">
+                        <i class="fa fa-user"></i>
+                        <span class="nav-label">用户管理</span>
                     </a>
                 </li>
                 <li sec:authorize="hasRole('ROLE_ADMIN')">
-                    <a class="J_menuItem" th:href="@{/admin/garbage/list}" title="垃圾管理">
-                        <i class="fa fa-dropbox"></i>
-                        <span class="nav-label">垃圾管理</span>
+                    <a href="#" title="审批事项">
+                        <i class="fa fa-anchor"></i>
+                        <span class="nav-label">审批事项</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a class="J_menuItem" th:href="@{/admin/clubApply/listApplying}">成立社团审批</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" th:href="@{/admin/classExam/result}">加入社团审批</a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li sec:authorize="hasRole('ROLE_CLUB_MANAGER')">
+                    <a class="J_menuItem" th:href="@{/admin/clubApply/listMyApply}" title="社团申请">
+                        <i class="fa fa-group"></i>
+                        <span class="nav-label">社团申请</span>
                     </a>
                 </li>
             </ul>
@@ -54,7 +70,7 @@
                         <i class="fa fa-bars"></i> </a>
                     <form role="search" class="navbar-form-custom" method="post">
                         <div class="form-group">
-                            <h1>垃圾分类管理系统</h1>
+                            <h1>社团管理系统</h1>
                         </div>
                     </form>
                 </div>

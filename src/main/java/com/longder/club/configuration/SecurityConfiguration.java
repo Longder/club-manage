@@ -1,7 +1,7 @@
 package com.longder.club.configuration;
 
-import com.xwork.expense.security.CustomerUserDetailsService;
-import com.xwork.expense.security.FormLoginSuccessHandler;
+import com.longder.club.security.CustomerUserDetailsService;
+import com.longder.club.security.FormLoginSuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
