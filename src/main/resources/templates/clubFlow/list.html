@@ -8,17 +8,17 @@
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>我的入社申请</h5>
+                    <h5>社团收支列表</h5>
                 </div>
                 <div class="ibox-content">
                     <div class="row">
                         <div class="col-sm-3">
                         <span class="input-group-btn">
                         <input type="button" class="btn btn-success" data-toggle="modal"
-                               th:disabled="${!canApply}"
-                               data-target="#joinApplyModal"
-                               onclick="openModal('/admin/joinApply/toAdd','joinApplyModal')"
-                               value="新增申请"/>
+                               th:disabled="${!canAdd}"
+                               data-target="#flowModal"
+                               onclick="openModal('/admin/clubFlow/toAdd','flowModal')"
+                               value="添加社团收支"/>
                         </span>
                         </div>
                         <div class="col-sm-9">
@@ -29,27 +29,29 @@
                             <thead>
                             <tr>
                                 <th>序号</th>
-                                <th>加入社团名称</th>
-                                <th>申请原因</th>
-                                <th>申请状态</th>
+                                <th>收支类型</th>
+                                <th>金额</th>
+                                <th>日期</th>
+                                <th>备注</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="apply:${applyList}">
-                                <td th:text="${applyStat.index+1}"></td>
-                                <td th:text="${apply.club.name}"></td>
-                                <td th:text="${apply.reason}"></td>
+                            <tr th:each="flow:${flowList}">
+                                <td th:text="${flowStat.index+1}"></td>
                                 <td>
-                                    <span class="label" th:classappend="${apply.applyStatus.label}"
-                                          th:text="${apply.applyStatus.displayName}"></span>
+                                    <span class="label" th:classappend="${flow.flowType.label}"
+                                          th:text="${flow.flowType.displayName}"></span>
                                 </td>
+                                <td th:text="${flow.amount}"></td>
+                                <td th:text="${flow.flowDate}"></td>
+                                <td th:text="${flow.remark}"></td>
                                 <td>
-                                    <button data-toggle="modal" class="btn btn-sm btn-primary"
-                                            data-target="#joinApplyModal"
-                                            th:onclick="'openModal(\'/admin/joinApply/detail?applyId='+${apply.id}+'\',\'joinApplyModal\')'">
-                                        详情
-                                    </button>
+                                    <a class="btn btn-danger"
+                                       onclick="return confirm('确定删除吗？')"
+                                       th:href="@{/admin/clubFlow/remove(flowId=${flow.id})}">
+                                        删除
+                                    </a>
                                 </td>
                             </tr>
                             </tbody>
@@ -60,7 +62,7 @@
         </div>
     </div>
 </div>
-<div class="modal inmodal fade" id="joinApplyModal" tabindex="-1" role="dialog" aria-hidden="true"></div>
+<div class="modal inmodal fade" id="flowModal" tabindex="-1" role="dialog" aria-hidden="true"></div>
 <!--引入统一JS-->
 <script th:replace="import/script :: script"></script>
 </body>

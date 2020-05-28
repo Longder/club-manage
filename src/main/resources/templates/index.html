@@ -46,7 +46,7 @@
                             <a class="J_menuItem" th:href="@{/admin/clubApply/listApplying}">成立社团审批</a>
                         </li>
                         <li>
-                            <a class="J_menuItem" th:href="@{/admin/classExam/result}">加入社团审批</a>
+                            <a class="J_menuItem" th:href="@{/admin/joinApply/listApplying}">加入社团审批</a>
                         </li>
                     </ul>
                 </li>
@@ -56,6 +56,22 @@
                         <i class="fa fa-group"></i>
                         <span class="nav-label">社团申请</span>
                     </a>
+                </li>
+
+                <li sec:authorize="hasRole('ROLE_CLUB_MANAGER')">
+                    <a href="#" title="社团管理">
+                        <i class="fa fa-magic"></i>
+                        <span class="nav-label">社团管理</span>
+                        <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a class="J_menuItem" th:href="@{/admin/clubMatter/list}">社团事项管理</a>
+                        </li>
+                        <li>
+                            <a class="J_menuItem" th:href="@{/admin/clubFlow/list}">社团收支管理</a>
+                        </li>
+                    </ul>
                 </li>
 
                 <li sec:authorize="hasRole('ROLE_CLUB_MEMBER')">

@@ -5,7 +5,7 @@
                 <span aria-hidden="true">×</span>
                 <span class="sr-only">Close</span>
             </button>
-            <h4 class="modal-title">新建入社申请</h4>
+            <h4 class="modal-title">入社申请详情</h4>
         </div>
         <small class="font-bold">
             <div class="modal-body">
@@ -13,23 +13,22 @@
                     <div class="col-sm-12">
                         <div class="ibox float-e-margins">
                             <div class="ibox-content">
-                                <form id="add-apply-form" method="post" class="form-horizontal"
-                                      th:action="@{/admin/joinApply/add}">
+                                <div class="form-horizontal">
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">申请人<span
                                                 class="text-danger">*</span></label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" th:value="${realName}" readonly/>
+                                            <input type="text" class="form-control" th:value="${apply.applyUser.name}"
+                                                   readonly/>
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label">选择社团<span
+                                        <label class="col-sm-2 control-label">申请社团<span
                                                 class="text-danger">*</span></label>
                                         <div class="col-sm-10">
-                                            <select class="form-control" name="club.id">
-                                                <option th:each="club:${clubs}" th:value="${club.id}" th:text="${club.name}"></option>
-                                            </select>
+                                            <input type="text" class="form-control" th:value="${apply.club.name}"
+                                                   readonly/>
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
@@ -38,17 +37,17 @@
                                                 class="text-danger">*</span>
                                         </label>
                                         <div class="col-sm-10">
-                                            <textarea name="reason" class="form-control"></textarea>
+                                            <textarea readonly class="form-control"
+                                                      th:text="${apply.reason}"></textarea>
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
                                     <div class="form-group">
                                         <div class="col-sm-4 col-sm-offset-2">
-                                            <button class="btn btn-primary" type="submit">确定申请</button>
-                                            <button class="btn btn-white" type="button" data-dismiss="modal">取消</button>
+                                            <button class="btn btn-white" type="button" data-dismiss="modal">关闭</button>
                                         </div>
                                     </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -57,21 +56,3 @@
         </small>
     </div>
 </div>
-<script>
-    $(function () {
-        //表单验证
-        $("#add-apply-form").validate({
-            rules: {
-                name: "required",
-                description: "required",
-                reason: "required"
-            }, messages: {
-                name: "请输入社团名称",
-                description: "请输入社团描述",
-                reason: "请输入申请原因"
-            },
-            onfocusout: false
-        });
-
-    });
-</script>

@@ -1,0 +1,108 @@
+<div class="modal-dialog modal-lg" xmlns:th="http://www.thymeleaf.org">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">
+                <span aria-hidden="true">×</span>
+                <span class="sr-only">Close</span>
+            </button>
+            <h4 class="modal-title">新增社团收支</h4>
+        </div>
+        <small class="font-bold">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-content">
+                                <form id="add-flow-form" method="post" class="form-horizontal"
+                                      th:action="@{/admin/clubFlow/add}">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">社团名称<span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" readonly th:value="${clubName}"/>
+                                        </div>
+                                    </div>
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">收支类型<span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-sm-10">
+                                            <label class="checkbox-inline i-checks">
+                                                <input name="flowType" type="radio" value="EXPEND"
+                                                       checked>支出</label>
+                                            <label class="checkbox-inline i-checks">
+                                                <input name="flowType" type="radio" value="INCOMING">收入</label>
+                                        </div>
+                                    </div>
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">收支日期<span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="flowDateStr" class="form-control date-pick"/>
+                                        </div>
+                                    </div>
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">金额<span
+                                                class="text-danger">*</span></label>
+                                        <div class="col-sm-10">
+                                            <input type="number" min="1" name="amount" class="form-control"/>
+                                        </div>
+                                    </div>
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">备注<span
+                                                class="text-danger">*</span>
+                                        </label>
+                                        <div class="col-sm-10">
+                                            <textarea name="remark" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="hr-line-dashed"></div>
+                                    <div class="form-group">
+                                        <div class="col-sm-4 col-sm-offset-2">
+                                            <button class="btn btn-primary" type="submit">确定新增</button>
+                                            <button class="btn btn-white" type="button" data-dismiss="modal">取消</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </small>
+    </div>
+</div>
+<script>
+    $(function(){
+        // icheck使能
+        $('.i-checks').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+        });
+
+        //datePicker使能
+        $(".date-pick").each(function () {
+            laydate.render({
+                elem: this,
+                trigger: 'click',
+            });
+        });
+
+        //表单验证
+        $("#add-flow-form").validate({
+            rules: {
+                flowDateStr: "required",
+                amount:"required",
+                remark: "required"
+            }, messages: {
+                flowDateStr: "请输入日期",
+                amount:"请输入金额",
+                remark: "请输入备注"
+            },
+            onfocusout: false
+        });
+    });
+</script>

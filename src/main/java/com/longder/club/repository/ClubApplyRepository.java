@@ -7,6 +7,9 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
+/**
+ * 建社申请表数据库操作
+ */
 public interface ClubApplyRepository extends JpaRepository<ClubApply, Long> {
 
     /**

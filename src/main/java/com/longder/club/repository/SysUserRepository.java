@@ -9,7 +9,9 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-
+/**
+ * 用户表数据库操作
+ */
 public interface SysUserRepository extends JpaRepository<SysUser, Long> {
 
     @Query("select s from SysUser s where s.loginName = :loginName")

@@ -16,7 +16,7 @@
     您还未参加任何社团
 </h2>
 <h2 th:if="${currentUser.role.name()=='ROLE_CLUB_MEMBER' && currentUser.club != null}">
-    您参加的社团为：<span class="text-danger" th:text="${currentUser.club.name}"></span>
+    您已成功加入社团：<span class="text-danger" th:text="${currentUser.club.name}"></span>
 </h2>
 </body>
 </html>

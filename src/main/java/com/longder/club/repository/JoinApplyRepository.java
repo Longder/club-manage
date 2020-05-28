@@ -7,6 +7,9 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
+/**
+ * 入社申请表数据库操作
+ */
 public interface JoinApplyRepository extends JpaRepository<JoinApply, Long> {
 
     /**
@@ -27,4 +30,11 @@ public interface JoinApplyRepository extends JpaRepository<JoinApply, Long> {
      */
     @Query("SELECT A FROM JoinApply A WHERE A.applyUser.id = :applyUserId and (A.applyStatus = 'APPLYING' or A.applyStatus = 'CONSENT')")
     List<JoinApply> listApplyingAndConsentByApplyUserId(@Param("applyUserId") Long applyUserId);
+
+    /**
+     * 查询正在申请中的申请
+     * @return
+     */
+    @Query("SELECT A FROM JoinApply A WHERE A.applyStatus = 'APPLYING'")
+    List<JoinApply> listApplying();
 }
