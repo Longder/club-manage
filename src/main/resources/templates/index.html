@@ -57,6 +57,13 @@
                         <span class="nav-label">社团申请</span>
                     </a>
                 </li>
+
+                <li sec:authorize="hasRole('ROLE_CLUB_MEMBER')">
+                    <a class="J_menuItem" th:href="@{/admin/joinApply/listMyApply}" title="申请加入社团">
+                        <i class="fa fa-group"></i>
+                        <span class="nav-label">申请加入社团</span>
+                    </a>
+                </li>
             </ul>
         </div>
     </nav>

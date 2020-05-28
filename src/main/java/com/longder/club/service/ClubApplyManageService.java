@@ -40,7 +40,15 @@ public interface ClubApplyManageService {
 
     /**
      * 查询正在申请中的社团申请
+     *
      * @return
      */
     List<ClubApply> listApplying();
+
+    /**
+     * 审核
+     *
+     * @param clubApply
+     */
+    void approve(ClubApply clubApply);
 }

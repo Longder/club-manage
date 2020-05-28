@@ -1,9 +1,12 @@
 package com.longder.club.service.impl;
 
 import com.longder.club.entity.enums.ApplyStatus;
+import com.longder.club.entity.po.Club;
 import com.longder.club.entity.po.ClubApply;
 import com.longder.club.entity.po.SysUser;
 import com.longder.club.repository.ClubApplyRepository;
+import com.longder.club.repository.ClubRepository;
+import com.longder.club.repository.SysUserRepository;
 import com.longder.club.security.SecurityUtil;
 import com.longder.club.service.ClubApplyManageService;
 import org.springframework.stereotype.Service;
@@ -20,6 +23,10 @@ public class ClubApplyManageServiceImpl implements ClubApplyManageService {
 
     @Resource
     private ClubApplyRepository clubApplyRepository;
+    @Resource
+    private ClubRepository clubRepository;
+    @Resource
+    private SysUserRepository sysUserRepository;
 
     /**
      * 检查是否可以申请社团
@@ -80,5 +87,27 @@ public class ClubApplyManageServiceImpl implements ClubApplyManageService {
     @Override
     public List<ClubApply> listApplying() {
         return clubApplyRepository.listApplying();
+    }
+
+    /**
+     * 审核
+     *
+     * @param clubApply
+     */
+    @Override
+    @Transactional
+    public void approve(ClubApply clubApply) {
+        ClubApply dbApply = clubApplyRepository.getOne(clubApply.getId());
+        dbApply.setApplyStatus(clubApply.getApplyStatus());
+        clubApplyRepository.save(dbApply);
+        //如果同意，需要新增一个Club，并记录更新社团干事关联的社团
+        if (dbApply.getApplyStatus() == ApplyStatus.CONSENT) {
+            Club club = new Club();
+            club.setName(dbApply.getName());
+            club.setDescription(dbApply.getDescription());
+            clubRepository.save(club);
+            dbApply.getApplyUser().setClub(club);
+            sysUserRepository.save(dbApply.getApplyUser());
+        }
     }
 }

@@ -68,21 +68,34 @@ public class ClubApplyManageController {
 
     /**
      * 待审核列表（社联管理员查看）
+     *
      * @return
      */
     @GetMapping("/listApplying")
-    public String listApplying(Model model){
-        model.addAttribute("applyList",clubApplyManageService.listApplying());
+    public String listApplying(Model model) {
+        model.addAttribute("applyList", clubApplyManageService.listApplying());
         return "clubApply/list-applying";
     }
 
     /**
      * 去审核页
+     *
      * @return
      */
     @GetMapping("/toApprove")
-    public String toApprove(Long applyId, Model model){
+    public String toApprove(Long applyId, Model model) {
         model.addAttribute("apply", clubApplyManageService.getOneApply(applyId));
         return "clubApply/approve-modal";
+    }
+
+    /**
+     * 审核社团申请
+     *
+     * @return
+     */
+    @PostMapping("/approve")
+    public String approve(ClubApply clubApply) {
+        clubApplyManageService.approve(clubApply);
+        return "redirect:/admin/clubApply/listApplying";
     }
 }
