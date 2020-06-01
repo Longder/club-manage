@@ -26,75 +26,92 @@ public class MainController {
 
     /**
      * 主页默认跳转到登陆页
+     *
      * @return
      */
     @GetMapping("/")
-    public String index(){
+    public String index() {
         return "redirect:toLogin";
     }
 
     /**
      * 去登陆页
+     *
      * @return
      */
     @GetMapping("/toLogin")
-    public String toLogin(){
+    public String toLogin() {
         return "login";
     }
 
 
     /**
      * 去注册页面
+     *
      * @return
      */
     @GetMapping("/toRegister")
-    public String toRegister(){
+    public String toRegister() {
         return "register";
     }
 
     /**
      * 检查登录名
+     *
      * @return
      */
     @ResponseBody
     @PostMapping("/checkLoginName")
-    public Boolean checkLoginName(String loginName){
+    public Boolean checkLoginName(String loginName) {
         return userManageService.checkLoginName(loginName);
     }
 
     /**
      * 注册一个用户
+     *
      * @param sysUser
      * @return
      */
     @PostMapping("/register")
-    public String register(SysUser sysUser){
-        log.debug("开始注册用户，登录名：{}",sysUser.getLoginName());
-        userManageService.saveOneUser(sysUser,sysUser.getRole());
+    public String register(SysUser sysUser) {
+        log.debug("开始注册用户，登录名：{}", sysUser.getLoginName());
+        userManageService.saveOneUser(sysUser, sysUser.getRole());
         return "redirect:toLogin";
     }
 
     /**
      * 后台主页,登陆后访问的首页
+     *
      * @return
      */
     @GetMapping("/admin/index")
-    public String adminIndex(Model model){
+    public String adminIndex(Model model) {
         //当前用户
         SysUser currentUser = SecurityUtil.getCurrentUser();
         assert currentUser != null;
-        model.addAttribute("userName",currentUser.getName());
+        model.addAttribute("userName", currentUser.getName());
         return "index";
     }
 
     /**
      * 仪表盘，欢迎页面
+     *
      * @return
      */
     @GetMapping("/admin/dashboard")
-    public String dashboard(Model model){
-        model.addAttribute("currentUser",SecurityUtil.getCurrentUser());
+    public String dashboard(Model model) {
+        model.addAttribute("currentUser", SecurityUtil.getCurrentUser());
         return "dashboard";
+    }
+
+    /**
+     * 管理员修改密码
+     *
+     * @return
+     */
+    @GetMapping("/admin/toEditPassword")
+    public String toEditPassword() {
+        return "user/edit-password-modal";
     }
 
 }

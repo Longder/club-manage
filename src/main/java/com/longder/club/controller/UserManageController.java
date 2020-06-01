@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 
@@ -50,5 +51,16 @@ public class UserManageController {
     public String edit(SysUser sysUser){
         userManageService.editOneUser(sysUser);
         return "redirect:/admin/user/list";
+    }
+
+    /**
+     * 修改密码
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/changePassword")
+    public String changePassword(String newPassword){
+        userManageService.changePassword(newPassword);
+        return "ok";
     }
 }

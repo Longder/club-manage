@@ -5,6 +5,7 @@ import com.longder.club.entity.po.SysUser;
 import com.longder.club.entity.po.SysUserRole;
 import com.longder.club.repository.SysUserRepository;
 import com.longder.club.repository.SysUserRoleRepository;
+import com.longder.club.security.SecurityUtil;
 import com.longder.club.service.UserManageService;
 import com.longder.club.util.EncryptionUtil;
 import org.springframework.stereotype.Service;
@@ -96,5 +97,18 @@ public class UserManageServiceImpl implements UserManageService {
         dbUser.setPhone(sysUser.getPhone());
         dbUser.setEmail(sysUser.getEmail());
         sysUserRepository.save(dbUser);
+    }
+
+    /**
+     * 修改密码
+     *
+     * @param newPassword
+     */
+    @Override
+    public void changePassword(String newPassword) {
+        SysUser sysUser = SecurityUtil.getCurrentUser();
+        assert sysUser != null;
+        sysUser.setPassword(EncryptionUtil.encrypt(newPassword.trim()));
+        sysUserRepository.save(sysUser);
     }
 }

@@ -42,4 +42,10 @@ public interface UserManageService {
      */
     void editOneUser(SysUser sysUser);
 
+
+    /**
+     * 修改密码
+     * @param newPassword
+     */
+    void changePassword(String newPassword);
 }
